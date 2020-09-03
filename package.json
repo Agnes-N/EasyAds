@@ -1,0 +1,48 @@
+{
+  "name": "easy-ads",
+  "version": "1.0.0",
+  "description": "app to sell stuffs that are no longer needed",
+  "main": "index.js",
+  "scripts": {
+    "serve": "nodemon --exec babel-node server/index.js",
+    "lint": "eslint --fix ./server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Agnes-N/EasyAds.git"
+  },
+  "author": "agnes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Agnes-N/EasyAds/issues"
+  },
+  "homepage": "https://github.com/Agnes-N/EasyAds#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^2.0.2",
+    "sequelize-cli": "^6.2.0",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/register": "^7.9.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "logdna-winston": "^2.3.1",
+    "pg": "^8.3.3",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5",
+    "winston": "^3.2.1"
+  }
+}
