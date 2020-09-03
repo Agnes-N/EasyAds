@@ -3,7 +3,8 @@
     "extends": "airbnb-base",
     "env": {
         "node": true,
-        "es6": true
+        "es6": true,
+        "jest": true
     },
     "rules": {
         "one-var": 0,
@@ -13,6 +14,8 @@
         "no-param-reassign": 0,
         "comma-dangle": 0,
         "arrow-parens": "off",
+        "indent": ["warn"],
+        "quotes": ["warn", "single"],    
         "curly": [
             "error",
             "multi-line"
