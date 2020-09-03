@@ -18,7 +18,7 @@ const basePath = '/api/v1';
 
 sequelize.sync().then(() => {
   app.listen(port, () => {
-    logger.info(`Database succesfully connected and server listening on ${port}`);
+    logger.info(`Database succesfully connected and server listening on port ${port}`);
   });
 });
 

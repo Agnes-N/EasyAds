@@ -5,7 +5,20 @@
   "main": "index.js",
   "scripts": {
     "serve": "nodemon --exec babel-node server/index.js",
-    "lint": "eslint --fix ./server"
+    "lint": "eslint --fix ./server",
+    "test": "jest",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
+    "pretest": "cross-env NODE_ENV=test npm run migrate:reset",
+    "coveralls": "jest --coverage --coverageDirectory=output/coverage/jest"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageReporters": ["json", "html"],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "repository": {
     "type": "git",
@@ -25,9 +38,10 @@
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "nodemon": "^2.0.2",
     "prettier": "^2.0.2",
     "sequelize-cli": "^6.2.0",
-    "nodemon": "^2.0.2"
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "@babel/cli": "^7.8.4",
@@ -37,9 +51,12 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/register": "^7.9.0",
     "body-parser": "^1.19.0",
+    "coveralls": "^3.0.11",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jest": "^26.4.2",
     "logdna-winston": "^2.3.1",
+    "nyc": "^15.1.0",
     "pg": "^8.3.3",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
