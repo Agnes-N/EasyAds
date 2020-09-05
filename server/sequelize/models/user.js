@@ -14,7 +14,7 @@ export default (sequelize, DataTypes) => {
   User.associate = (models) => {
     User.hasMany(models.Products, {
       foreignKey: 'userId',
-      as: 'Product',
+      as: 'product',
       onDelete: 'CASCADE',
     });
   };
