@@ -14,8 +14,6 @@
         "no-param-reassign": 0,
         "comma-dangle": 0,
         "arrow-parens": "off",
-        "indent": ["warn"],
-        "quotes": ["warn", "single"],    
         "curly": [
             "error",
             "multi-line"
