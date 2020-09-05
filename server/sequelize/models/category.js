@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
   Category.associate = (models) => {
     Category.belongsTo(models.Products, {
       foreignKey: 'categoryId',
-      as: 'Category',
+      as: 'category',
       onDelete: 'CASCADE',
     });
   };

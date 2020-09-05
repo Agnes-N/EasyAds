@@ -15,12 +15,12 @@ export default (sequelize, DataTypes) => {
   Product.associate = (models) => {
     Product.belongsTo(models.Users, {
       foreignKey: 'userId',
-      as: 'User',
+      as: 'user',
       onDelete: 'CASCADE',
     });
-    Product.hasMany(models.Category, {
+    Product.hasMany(models.Categories, {
       foreignKey: 'categoryId',
-      as: 'Category',
+      as: 'category',
       onDelete: 'CASCADE',
     });
   };
