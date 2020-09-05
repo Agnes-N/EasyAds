@@ -9,7 +9,9 @@ module.exports = {
         email: 'kella@example.com',
         password: '1234asd',
         address: 'kicukiro',
-        phoneNumber: '0781155667'
+        phoneNumber: '0781155667',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         firstname: 'allan',
@@ -17,7 +19,9 @@ module.exports = {
         email: 'allan@example.com',
         password: '1234asd',
         address: 'kicukiro',
-        phoneNumber: '0788798777'
+        phoneNumber: '0788798777',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
     ],
     {},
