@@ -14,3 +14,9 @@ export const signupSchema = Joi.object().keys({
   phoneNumber: Joi.string().alphanum().min(10).max(30)
     .required(),
 });
+
+export const signinSchema = Joi.object().keys({
+  email: Joi.string().email().max(30).required(),
+  password: Joi.string().alphanum().min(6).max(30)
+    .required()
+});
