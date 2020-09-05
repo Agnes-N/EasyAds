@@ -1,4 +1,4 @@
-import authHelper from '../helpers/authHelpers';
+import authHelper from '../helpers/userHelper';
 
 /**
  * This class contains methods
