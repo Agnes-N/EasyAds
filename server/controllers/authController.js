@@ -83,8 +83,8 @@ class authController {
           const token = await TokenHelper.generateToken(payload);
 
           // Returning the token and some user information
-          req.login(payload, { session: false }, () => res.status(200).json({
-            status: 200,
+          req.login(payload, { session: false }, () => res.status(201).json({
+            status: 201,
             message: 'User signed in successfully',
             data: {
               token,

@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import PasswordHelper from '../../helpers/passwordHelper';
+
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
     'Users',
@@ -8,7 +10,7 @@ module.exports = {
         firstname: 'kella',
         lastname: 'aline',
         email: 'kella@example.com',
-        password: '1234asd',
+        password: PasswordHelper.hashPassword('1234asd'),
         address: 'kicukiro',
         phoneNumber: '0781155667',
         createdAt: new Date(),
@@ -19,7 +21,7 @@ module.exports = {
         firstname: 'allan',
         lastname: 'hera',
         email: 'allan@example.com',
-        password: '1234asd',
+        password: PasswordHelper.hashPassword('1234asd'),
         address: 'kicukiro',
         phoneNumber: '0788798777',
         createdAt: new Date(),
@@ -30,7 +32,7 @@ module.exports = {
         firstname: 'aggy',
         lastname: 'reina',
         email: 'aggyreina@gmail.com',
-        password: '12345678',
+        password: PasswordHelper.hashPassword('12345678'),
         address: 'gasabo',
         phoneNumber: '0788304821',
         createdAt: new Date(),
