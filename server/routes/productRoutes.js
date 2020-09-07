@@ -11,5 +11,6 @@ router.get('/products', TokenHandler.verifyToken, ProductController.retrieveAllP
 router.get('/products/:productId', TokenHandler.verifyToken, Validations.validateProductId, ProductController.retrieveOneProduct);
 router.patch('/products/:productId/status', TokenHandler.verifyToken, Validations.validateProductId, Validations.validateProductStatus, checkUser.verifyProductOwnership, ProductController.markProductAsSold);
 router.patch('/products/:productId/price', TokenHandler.verifyToken, Validations.validateProductId, checkUser.verifyProductOwnership, ProductController.updateProductPrice);
+router.delete('/products/:productId', TokenHandler.verifyToken, Validations.validateProductId, checkUser.verifyProductOwnership, ProductController.deleteProduct);
 
 export default router;

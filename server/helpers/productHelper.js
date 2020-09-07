@@ -114,6 +114,25 @@ class ProductHelper {
       return error;
     }
   }
+
+  /**
+   * This method updates a product with email.
+   * @param {string} id product email.
+   * @param {object} data product data.
+   * @returns {object} product data.
+   */
+  static async deleteProductWithId(id) {
+    try {
+      const { Products } = models;
+      await Products.destroy({
+        where: { id },
+        returning: true,
+        plain: true
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default ProductHelper;
