@@ -19,6 +19,9 @@ describe('Sign in Endpoints', () => {
   }, {
     email: 'allan@example',
     password: ''
+  }, {
+    email: 'aggyreina@gmail.com',
+    password: '1234adgrb'
   }];
   it('should allow user to sign in', async () => {
     const res = await request.post('/api/v1/auth/signin')
@@ -53,5 +56,12 @@ describe('Sign in Endpoints', () => {
       .send(userData[4]);
     expect(res.statusCode).toEqual(422);
     expect(res.body).toHaveProperty('message');
+  });
+
+  it('should not allow user to sign in when they provide incorrect credentials', async () => {
+    const res = await request.post('/api/v1/auth/signin')
+      .send(userData[5]);
+    expect(res.statusCode).toEqual(404);
+    expect(res.body).toHaveProperty('error');
   });
 });
