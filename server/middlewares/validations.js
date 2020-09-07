@@ -112,6 +112,21 @@ class Validations {
       });
     }
   }
+
+  /**
+   * This method validates product status from API consumer.
+   * @param {object} req The user's request.
+   * @param {object} res The response.
+   * @param {Function} next pass to next function
+   * @returns {object} Error message.
+   */
+  static async validateProductStatus(req, res, next) {
+    const { status } = req.body;
+    if (status === 'sold') {
+      return next();
+    }
+    res.status(400).json({ status: 400, error: 'only sold status should be uesd' });
+  }
 }
 
 export default Validations;

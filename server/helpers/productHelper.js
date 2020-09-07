@@ -40,6 +40,31 @@ class ProductHelper {
       return error;
     }
   }
+
+  /**
+   * This method updates a product with email.
+   * @param {string} id product email.
+   * @param {object} data product data.
+   * @returns {object} product data.
+   */
+  static async updateProductWithId(id, data) {
+    try {
+      const { Products } = models;
+      const affectedRows = await Products.update(data, {
+        where: { id },
+        returning: true,
+        plain: true
+      });
+      if (affectedRows) {
+        const product = await Products.findOne({
+          where: { id }
+        });
+        return product;
+      }
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default ProductHelper;
