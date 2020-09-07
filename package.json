@@ -3,10 +3,17 @@
   "version": "1.0.0",
   "description": "app to sell stuffs that are no longer needed",
   "main": "index.js",
+  "nyc": {
+    "exclude": [
+      "server/helpers/loggerHelper.js",
+      "server/config/*",
+      "server/sequelize/models/*.js"
+    ]
+  },
   "scripts": {
     "serve": "nodemon --exec babel-node server/index.js",
     "lint": "eslint --fix ./server",
-    "test": "jest",
+    "test": "npm run droptables:test && npm run migrate:test && env NODE_ENV=test nyc jest --coverage @babel/polyfill @babel/register server/tests/*.js*",
     "migrate": "npx sequelize-cli db:migrate",
     "seed": "npx sequelize-cli db:seed:all",
     "seed:drop": "npx sequelize-cli db:seed:undo:all",
