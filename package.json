@@ -13,7 +13,7 @@
   "scripts": {
     "serve": "nodemon --exec babel-node server/index.js",
     "lint": "eslint --fix ./server",
-    "test": "npm run droptables:test && npm run migrate:test && env NODE_ENV=test nyc jest --coverage @babel/polyfill @babel/register server/tests/*.js*",
+    "test": "npm run droptables:test && npm run migrate:test && env NODE_ENV=test nyc jest @babel/polyfill @babel/register server/tests/*.js*",
     "migrate": "npx sequelize-cli db:migrate",
     "seed": "npx sequelize-cli db:seed:all",
     "seed:drop": "npx sequelize-cli db:seed:undo:all",
