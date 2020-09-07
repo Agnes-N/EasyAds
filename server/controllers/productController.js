@@ -1,4 +1,5 @@
 import ProductHelper from '../helpers/productHelper';
+import ImageHelper from '../helpers/imageHelper';
 
 /**
  * This class contains all methods
@@ -6,6 +7,60 @@ import ProductHelper from '../helpers/productHelper';
  * product-related operations.
  */
 class ProductController {
+  /**
+   * This method registers product.
+   * @param {object} req The user's request.
+   * @param {object} res The response.
+   * @returns {object} Registered product  .
+   */
+  static async registerProduct(req, res) {
+    try {
+      const imagePaths = req.body.image;
+      const image = await ImageHelper.uploadImages(imagePaths);
+      const {
+        title,
+        price,
+        status,
+        categoryId,
+        description
+      } = req.body;
+      const { id } = req.user;
+      title.toUpperCase();
+
+      const productFound = await ProductHelper.findProduct({ title });
+      if (productFound) {
+        return res.status(409).json({
+          status: 409,
+          message: `Product was not registered ${title} already exist`
+        });
+      }
+
+      const savedProduct = await ProductHelper.saveProduct({
+        title,
+        userId: id,
+        price,
+        status,
+        categoryId,
+        description,
+        image
+      });
+
+      if (savedProduct) {
+        return res.status(201).json({
+          status: 201,
+          message: 'Product registered succesfully',
+          data: savedProduct.dataValues
+        });
+      }
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        message: 'Something went wrong when registering the product',
+        error: error.message
+      });
+    }
+  }
+
   /**
    * This method handles view all product requests.
    * @param {object} req The user's request.
