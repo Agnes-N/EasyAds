@@ -24,7 +24,7 @@ passportConfig(passport);
 
 sequelize.sync().then(() => {
   app.listen(port, () => {
-    logger.info(`Database succesfully connected and server listening on ${port}`);
+    logger.info(`Database succesfully connected and server listening on port ${port}`);
   });
 });
 
@@ -33,7 +33,7 @@ app.use(basePath, statusLogger(route));
 app.get('**', (req, res) => {
   res.status(200).send({
     status: 200,
-    message: 'You are Welcome to BareFoot Nomad. Use the link below to navigate to the API Documentation.'
+    message: 'You are Welcome to Easyads.'
   });
 });
 

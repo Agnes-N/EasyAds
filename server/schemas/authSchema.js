@@ -11,8 +11,7 @@ export const signupSchema = Joi.object().keys({
     .required(),
   address: Joi.string().alphanum().min(3).max(30)
     .required(),
-  phoneNumber: Joi.string().alphanum().min(10).max(30)
-    .required(),
+  phoneNumber: Joi.number().required(),
 });
 
 export const signinSchema = Joi.object().keys({

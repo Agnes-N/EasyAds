@@ -11,5 +11,12 @@ export default (sequelize, DataTypes) => {
     },
     {},
   );
+  User.associate = (models) => {
+    User.hasMany(models.Products, {
+      foreignKey: 'userId',
+      as: 'product',
+      onDelete: 'CASCADE',
+    });
+  };
   return User;
 };
