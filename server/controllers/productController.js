@@ -31,7 +31,7 @@ class ProductController {
       if (productFound) {
         return res.status(409).json({
           status: 409,
-          message: `Product was not registered ${title} already exist`
+          message: `Product was not registered, ${title} already exist`
         });
       }
 
@@ -174,6 +174,29 @@ class ProductController {
         status: 200,
         message: 'User product has been successfuly updated',
         data: updatedProduct
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        message: 'Something went wrong when updating the user product',
+        error: error.message
+      });
+    }
+  }
+
+  /**
+     * This method handles deleting product request.
+     * @param {object} req The user's request.
+     * @param {object} res The response.
+     * @returns {object} The status and message of the action done on product.
+     */
+  static async deleteProduct(req, res) {
+    try {
+      const { productId } = req.params;
+      await ProductHelper.deleteProductWithId(productId);
+      res.status(200).send({
+        status: 200,
+        message: 'User product has been successfuly deleted'
       });
     } catch (error) {
       return res.status(500).json({

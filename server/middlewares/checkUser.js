@@ -37,7 +37,7 @@ class checkUser {
   }
 
   /**
-   * This method verifies product owner.
+   * This method verifies profile owner.
    * @param {object} req The user's request.
    * @param {object} res The response.
    * @param {Function} next pass to next function
@@ -56,7 +56,7 @@ class checkUser {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        message: 'Something went wrong when verifying product owner',
+        message: 'Something went wrong when verifying profile owner',
         error: error.message
       });
     }
