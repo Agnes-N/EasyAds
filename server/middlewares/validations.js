@@ -125,7 +125,7 @@ class Validations {
     if (status === 'sold') {
       return next();
     }
-    res.status(400).json({ status: 400, error: 'only sold status should be uesd' });
+    res.status(400).json({ status: 400, error: 'only sold status should be used' });
   }
 }
 

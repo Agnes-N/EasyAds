@@ -24,9 +24,11 @@ app.use(passport.session());
 passportConfig(passport);
 
 sequelize.sync().then(() => {
-  app.listen(port, () => {
-    logger.info(`Database succesfully connected and server listening on port ${port}`);
-  });
+  if (process.env.NODE_ENV !== 'test') {
+    app.listen(port, () => {
+      logger.info(`Database succesfully connected and server listening on port ${port}`);
+    });
+  }
 });
 
 app.use(basePath, statusLogger(route));
