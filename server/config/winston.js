@@ -89,7 +89,7 @@ const logger = winston.createLogger({
 });
 
 // Ignore logging in Production.
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   logger.add(new winston.transports.Console(options.console));
 }
 

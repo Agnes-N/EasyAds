@@ -1,6 +1,7 @@
 import { signupSchema, signinSchema } from '../schemas/authSchema';
 import productSchema from '../schemas/productSchema';
 import idSchema from '../schemas/idValidator';
+import ProductHelper from '../helpers/productHelper';
 
 /**
  * This class contains all methods
@@ -53,14 +54,14 @@ class Validations {
   }
 
   /**
-   * This method validates the user id sent from the API consumer.
-   * @param {object} req The user's request.
+   * This method validates the product id sent from the API consumer.
+   * @param {object} req The product's request.
    * @param {object} res The response.
    * @param {object} next pass to next method.
    * @returns {object} Error message.
    */
-  static validateUserId(req, res, next) {
-    const { error } = idSchema.validate({ id: req.params.userId });
+  static validateProductId(req, res, next) {
+    const { error } = idSchema.validate({ productId: req.params.productId });
     const valid = error == null;
     if (valid) {
       next();
@@ -71,48 +72,36 @@ class Validations {
       const message = details.map((i) => i.message).join(',');
       res.status(422).json({
         status: 422,
-        error: `Users ${message}`
+        error: `Product ${message}`
       });
     }
   }
 
   /**
-   * This method validates the category id sent from the API consumer.
+   * This method validates product data from the API consumer.
    * @param {object} req The user's request.
    * @param {object} res The response.
    * @param {object} next pass to next method.
    * @returns {object} Error message.
    */
-  static validateCategoryId(req, res, next) {
-    const {
-      error
-    } = idSchema.validate({ id: req.params.categoryId });
+  static async validateProductData(req, res, next) {
+    const { body } = req;
+    const { error } = productSchema.validate(body);
     const valid = error == null;
     if (valid) {
-      next();
-    } else {
-      const {
-        details
-      } = error;
-      const message = details.map((i) => i.message).join(',');
-      res.status(422).json({
-        status: 422,
-        error: `Category ${message}`
-      });
-    }
-  }
+      const errors = {};
+      const productFound = await ProductHelper.findExistingProduct('id', body.productId);
 
-  /**
-     * This method validates product data from the API consumer.
-     * @param {object} req The user's request.
-     * @param {object} res The response.
-     * @param {object} next pass to next method.
-     * @returns {object} Error message.
-     */
-  static validateProductData(req, res, next) {
-    const { error } = productSchema.validate(req.body);
-    const valid = error == null;
-    if (valid) {
+      if (productFound.length === 0) {
+        errors.productId = 'The specified product does not exist!';
+      }
+      if (Object.keys(errors).length !== 0) {
+        return res.status(422).json({
+          status: 422,
+          error: errors
+        });
+      }
+      req.productId = productFound;
       next();
     } else {
       const { details } = error;
@@ -122,6 +111,21 @@ class Validations {
         error: message
       });
     }
+  }
+
+  /**
+   * This method validates product status from API consumer.
+   * @param {object} req The user's request.
+   * @param {object} res The response.
+   * @param {Function} next pass to next function
+   * @returns {object} Error message.
+   */
+  static async validateProductStatus(req, res, next) {
+    const { status } = req.body;
+    if (status === 'sold') {
+      return next();
+    }
+    res.status(400).json({ status: 400, error: 'only sold status should be uesd' });
   }
 }
 

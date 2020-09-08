@@ -1,6 +1,8 @@
-/* eslint-disable import/prefer-default-export */
 import Joi from '@hapi/joi';
 
-export const idSchema = Joi.object().keys({
-  id: Joi.number().integer().required()
+const idSchemas = Joi.object().keys({
+  productId: Joi.number().integer().required(),
 });
+
+export default idSchemas;
+
