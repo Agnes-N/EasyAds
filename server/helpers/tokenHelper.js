@@ -19,7 +19,7 @@ class TokenHelper {
     try {
       const token = await jwt.sign(
         data, SECRET_KEY,
-        { expiresIn: '2h' }
+        { expiresIn: '4h' }
       );
       return token;
     } catch (error) {

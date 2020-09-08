@@ -6,24 +6,31 @@
   "scripts": {
     "serve": "nodemon --exec babel-node server/index.js",
     "lint": "eslint --fix ./server",
-    "test": "jest",
+    "test": "npm run droptables:test && npm run migrate:test && env NODE_ENV=test jest --coverage",
     "migrate": "npx sequelize-cli db:migrate",
     "seed": "npx sequelize-cli db:seed:all",
     "seed:drop": "npx sequelize-cli db:seed:undo:all",
     "migrate:test": "env NODE_ENV=test sequelize db:migrate && env NODE_ENV=test sequelize db:seed:all",
     "drop": "sequelize db:migrate:undo:all",
     "droptables:test": "env NODE_ENV=test sequelize db:migrate:undo:all",
-    "coveralls": "nyc npm run test && jest --coverage"
+    "coveralls": "npm run test && cat ./coverage/lcov.info | coveralls"
   },
   "jest": {
-    "testEnvironment": "node",
-    "collectCoverage": true,
-    "coverageReporters": [
-      "json",
-      "html"
+    "collectCoverageFrom": [
+      "server/**/*.js"
     ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
+    "coverageThreshold": {
+      "global": {
+        "branches": 35,
+        "functions": 45,
+        "lines": 45,
+        "statements": 45
+      }
+    },
+    "modulePathIgnorePatterns": [
+      "server/sequelize/",
+      "server/config/*",
+      "server/schema"
     ]
   },
   "repository": {
@@ -51,28 +58,28 @@
   },
   "dependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
+    "babel-jest": "^26.3.0",
     "@babel/polyfill": "^7.8.7",
-    "@babel/preset-env": "^7.9.0",
     "@babel/register": "^7.9.0",
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "coveralls": "^3.1.0",
     "@hapi/joi": "^17.1.1",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
-    "cloudinary": "^1.21.0",
-    "coveralls": "^3.0.11",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jest": "^26.4.2",
     "jsonwebtoken": "^8.5.1",
     "logdna-winston": "^2.3.1",
-    "nyc": "^15.1.0",
     "passport": "^0.4.1",
     "pg": "^8.3.3",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.5",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "cloudinary": "^1.21.0",
     "winston": "^3.2.1"
   }
 }

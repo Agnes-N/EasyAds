@@ -27,6 +27,18 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        id: 6,
+        userId: 7,
+        title: 'laptop',
+        price: '2000000',
+        status: 'available',
+        image: 'http://res.cloudinary.com/champsdev/image/upload/v1599600549/kgevakqe0mfnuc8rqqkc.jpg',
+        categoryId: 4,
+        description: 'amazing',
+        createdAt: '2020-09-08T21:29:10.564Z',
+        updatedAt: '2020-09-08T21:29:10.565Z'
+      }
     ],
     {},
   ),

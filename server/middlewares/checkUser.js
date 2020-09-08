@@ -51,13 +51,23 @@ class checkUser {
       const { productId } = req.params;
 
       const foundProduct = await ProductHelper.findExistingProduct('id', productId);
-      // eslint-disable-next-line no-cond-assign
-      if (foundProduct.userId = id) next();
+      const productFound = foundProduct[0].dataValues;
+      if (productFound.userId === undefined) {
+        return res.status(404).json({
+          status: 404,
+          error: 'No such product found!'
+        });
+      } if (productFound.userId !== id) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Make sure you own the product!'
+        });
+      }
+      next();
     } catch (error) {
-      return res.status(500).json({
-        status: 500,
-        message: 'Something went wrong when verifying profile owner',
-        error: error.message
+      return res.status(404).json({
+        status: 404,
+        message: 'This product does not exit.'
       });
     }
   }
