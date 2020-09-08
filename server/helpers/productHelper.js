@@ -6,6 +6,55 @@ import models from '../sequelize/models';
  */
 class ProductHelper {
   /**
+     * This method registers a product.
+     * @param {object} productData product data.
+     * @returns {object} product data.
+     */
+  static async saveProduct(productData) {
+    try {
+      const { Products } = models;
+      const savedProduct = await Products.create(
+        {
+          ...productData,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          fields: [
+            'userId',
+            'title',
+            'price',
+            'status',
+            'image',
+            'categoryId',
+            'description',
+            'createdAt',
+            'updatedAt'
+          ]
+        }
+      );
+      return savedProduct;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+     * This method finds a product.
+     * @param {object} data product data.
+     * @returns {object} product data.
+     */
+  static async findProduct(data) {
+    try {
+      const { Products } = models;
+      const productFound = await Products.findOne({ where: data });
+      return productFound;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
    * This method checks whether the product exists
    * @param {string} column a value column where value belongs.
    * @param {string} value actual value.
