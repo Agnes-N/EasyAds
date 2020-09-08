@@ -1,4 +1,6 @@
 import authHelper from '../helpers/userHelper';
+import ProductHelper from '../helpers/productHelper';
+import TokenHelper from '../helpers/tokenHelper';
 
 /**
  * This class contains methods
@@ -29,6 +31,32 @@ class checkUser {
       return res.status(500).json({
         status: 500,
         message: 'Something went wrong while verifying used email',
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * This method verifies product owner.
+   * @param {object} req The user's request.
+   * @param {object} res The response.
+   * @param {Function} next pass to next function
+   * @returns {object} message indicating an error.
+   */
+  static async verifyProductOwnership(req, res, next) {
+    const { token } = req.headers;
+    try {
+      const data = TokenHelper.verifyToken(token);
+      const { id } = data;
+      const { productId } = req.params;
+
+      const foundProduct = await ProductHelper.findExistingProduct('id', productId);
+      // eslint-disable-next-line no-cond-assign
+      if (foundProduct.userId = id) next();
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        message: 'Something went wrong when verifying product owner',
         error: error.message
       });
     }
